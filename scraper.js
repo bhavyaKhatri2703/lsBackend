@@ -27,9 +27,12 @@ async function getDetails(leetcodeID) {
   const imgElement = await page.locator(".h-20.w-20.rounded-lg.object-cover")
   const usernameE = await page.locator(
     ".text-label-1.dark\\:text-dark-label-1.break-all.text-base.font-semibold"
-  ).textContent();
+  )
 
   const imgSRC = imgElement ? await imgElement.evaluate((el) => el.src) : null;
+  const name = usernameE
+  ? await usernameE.evaluate((el) => el.textContent)
+  : null;
 
   const values = elements.map(item => item.split("/")[0]);
   
@@ -37,7 +40,7 @@ async function getDetails(leetcodeID) {
   const points = parseInt(values[0], 10) + parseInt(values[1], 10) * 2 + parseInt(values[2], 10) * 3;
 
   const result = {
-    username: usernameE,
+    username: name,
     image: imgSRC,
     solved: values,
     totalSolved: total,
@@ -48,5 +51,5 @@ async function getDetails(leetcodeID) {
   console.log(result);
   return result;
 }
-getDetails('bhavyaCodes');
+
 export default getDetails;
