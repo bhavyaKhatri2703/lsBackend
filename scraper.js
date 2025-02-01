@@ -29,6 +29,10 @@ async function getDetails(leetcodeID) {
     ".text-label-1.dark\\:text-dark-label-1.break-all.text-base.font-semibold"
   )
 
+  console.log(elements);
+  console.log(imgElement);
+  console.log(usernameE)
+
   const imgSRC = imgElement ? await imgElement.evaluate((el) => el.src) : null;
   const name = usernameE
   ? await usernameE.evaluate((el) => el.textContent)
