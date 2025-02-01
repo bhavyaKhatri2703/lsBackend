@@ -73,6 +73,5 @@ async function getDetails(leetcodeID) {
   console.log(result);
   return result;
 }
-
-// Run the function
+export default getDetails;
 getDetails("bhavyaCodes").then(() => process.exit());
