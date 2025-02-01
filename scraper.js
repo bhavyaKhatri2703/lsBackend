@@ -1,7 +1,9 @@
 import { chromium } from 'patchright';
 
 async function getDetails(leetcodeID) {
-  const browser = await chromium.launch({ headless: true }); // Initialize Playwright browser
+  const browser = await chromium.launch({ 
+    executablePath: '/opt/render/.cache/ms-playwright/chromium_headless_shell-1155/chrome-linux/headless_shell',
+    headless: true }); // Initialize Playwright browser
   const page = await browser.newPage();
 
   await page.setExtraHTTPHeaders({
