@@ -48,5 +48,4 @@ async function getDetails(leetcodeID) {
   return result;
 }
 
-getDetails('bhavyaCodes');
 export default getDetails;
