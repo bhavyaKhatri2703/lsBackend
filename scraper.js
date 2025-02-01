@@ -13,47 +13,57 @@ async function getDetails(leetcodeID) {
     waitUntil: "networkidle"
   });
 
-  const userNotFound = await page.locator(
+  const userNotFound = await page.$(
     ".text-label-2.dark\\:text-dark-label-2.text-xl.font-bold"
-  ).isVisible();
-  
+  );
   if (userNotFound) {
-    console.log(`${leetcodeID} not found`);
+    console.log(`${leetcodeID} not found`)
     await browser.close();
     return null;
   }
 
-  const elements = await page.locator(".text-sd-foreground.text-xs.font-medium").allTextContents();
-  const imgElement = await page.locator(".h-20.w-20.rounded-lg.object-cover")
-  const usernameE = await page.locator(
+  const elements = await page.$$(".text-sd-foreground.text-xs.font-medium");
+  const imgElement = await page.$(".h-20.w-20.rounded-lg.object-cover");
+  const usernameE = await page.$(
     ".text-label-1.dark\\:text-dark-label-1.break-all.text-base.font-semibold"
-  )
+  );
 
-  console.log(elements);
-  console.log(imgElement);
-  console.log(usernameE)
+
+
+  const values = await Promise.all(
+    elements.map((el) => el.evaluate((el) => el.textContent))
+  );
+
+  const value = values.map((item) => item.split("/")[0]);
 
   const imgSRC = imgElement ? await imgElement.evaluate((el) => el.src) : null;
   const name = usernameE
-  ? await usernameE.evaluate((el) => el.textContent)
-  : null;
+    ? await usernameE.evaluate((el) => el.textContent)
+    : null;
 
-  const values = elements.map(item => item.split("/")[0]);
-  
-  const total = values.reduce((acc, val) => acc + parseInt(val, 10), 0);
-  const points = parseInt(values[0], 10) + parseInt(values[1], 10) * 2 + parseInt(values[2], 10) * 3;
+  const total =
+    parseInt(value[0], 10) + parseInt(value[1], 10) + parseInt(value[2], 10);
+  const points =
+    parseInt(value[0], 10) +
+    parseInt(value[1], 10) * 2 +
+    parseInt(value[2], 10) * 3;
 
   const result = {
     username: name,
     image: imgSRC,
-    solved: values,
+    solved: value,
     totalSolved: total,
     points: points,
   };
 
   await browser.close();
-  console.log(result);
+
+ console.log("Values:", values);
+ console.log("Image:", imgSRC);
+ console.log("Username:", name);
+
+
   return result;
 }
-
+getDetails("bhavyaCodes")
 export default getDetails;
