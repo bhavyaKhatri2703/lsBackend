@@ -1,7 +1,7 @@
 import getDetails from "./scraper.js";
 
 async function fetchUsernames() {
-  let response = await fetch("http://localhost:8081/users");
+  let response = await fetch("https://lsbackend-azqh.onrender.com/users");
   let data = await response.json(); 
   
   let usernames = data.map(element => element.username);
