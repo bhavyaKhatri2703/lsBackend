@@ -13,6 +13,9 @@ async function getDetails(leetcodeID) {
     waitUntil: "networkidle"
   });
 
+  const pageHTML = await page.content();
+  console.log("Full HTML:\n", pageHTML);
+
   const userNotFound = await page.$(
     ".text-label-2.dark\\:text-dark-label-2.text-xl.font-bold"
   );
