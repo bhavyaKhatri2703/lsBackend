@@ -2,7 +2,7 @@ import fetchDetails from './getData.js';
 import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
-import getDetails from './scraper.js';
+import getUserStats from './scraper.js';
 import dotenv from 'dotenv';
 dotenv.config();
 
@@ -47,7 +47,7 @@ app.post('/addUser', async (req, res) => {
     }
 
     try {
-        const userDetails = await getDetails(username); // Wait for the async function to resolve
+        const userDetails = await getUserStats(username); // Wait for the async function to resolve
         if (userDetails === null) {
             return res.status(400).json({ error: "Username does not exist" });
         }
