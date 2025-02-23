@@ -1,7 +1,7 @@
 import getUserProfileWithStats from "./scraper.js";
 
 async function fetchUsernames() {
-  let response = await fetch("https://leetcodestalkerbackend.onrender.com/users");
+  let response = await fetch("https://lsbackend-azqh.onrender.com/users");
   let data = await response.json(); 
   
   let usernames = data.map(element => element.username);
